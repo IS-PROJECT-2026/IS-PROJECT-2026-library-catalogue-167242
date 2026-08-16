@@ -27,46 +27,92 @@
     <!-- Main Content -->
     <main>
 
-        <!-- Search Section -->
+        <!-- Search and Category Filter Section -->
         <section class="search-section">
+
             <h2>Search Books</h2>
 
+            <!-- Search Input -->
             <input
                 type="text"
                 id="searchInput"
                 placeholder="Search by title or author..."
             >
 
+            <!-- Search Button -->
             <button id="searchButton">Search</button>
 
+            <br><br>
+
+            <!-- Category Filter -->
+            <label for="categoryFilter">
+                Filter by Category:
+            </label>
+
+            <select id="categoryFilter">
+
+                <option value="all">
+                    All Categories
+                </option>
+
+                <option value="African Literature">
+                    African Literature
+                </option>
+
+                <option value="Fiction">
+                    Fiction
+                </option>
+
+                <option value="Technology">
+                    Technology
+                </option>
+
+                <option value="Business">
+                    Business
+                </option>
+
+                <option value="Science">
+                    Science
+                </option>
+
+            </select>
+
+
+            <!-- Search Results -->
             <div id="searchResults">
                 <p>Enter a book title or author to search.</p>
             </div>
+
         </section>
 
 
         <!-- Dashboard Section -->
         <section class="dashboard">
+
             <h2>Library Dashboard</h2>
 
             <div class="dashboard-cards">
 
+                <!-- Total Books -->
                 <div class="card">
                     <h3>Total Books</h3>
-                    <p id="totalBooks">6</p>
+                    <p id="totalBooks">0</p>
                 </div>
 
+                <!-- Available Books -->
                 <div class="card">
                     <h3>Available Books</h3>
-                    <p id="availableBooks">6</p>
+                    <p id="availableBooks">0</p>
                 </div>
 
+                <!-- Borrowed Books -->
                 <div class="card">
                     <h3>Borrowed Books</h3>
                     <p id="borrowedBooks">0</p>
                 </div>
 
             </div>
+
         </section>
 
     </main>
@@ -79,37 +125,64 @@
         import books from "./js/books.js";
 
 
-        // Get elements from the HTML
-        const searchInput = document.getElementById("searchInput");
-        const searchButton = document.getElementById("searchButton");
-        const searchResults = document.getElementById("searchResults");
+        // ==============================
+        // GET HTML ELEMENTS
+        // ==============================
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const searchButton =
+            document.getElementById("searchButton");
+
+        const categoryFilter =
+            document.getElementById("categoryFilter");
+
+        const searchResults =
+            document.getElementById("searchResults");
 
 
-        // Get dashboard elements
-        const totalBooks = document.getElementById("totalBooks");
-        const availableBooks = document.getElementById("availableBooks");
-        const borrowedBooks = document.getElementById("borrowedBooks");
+        // Dashboard elements
+        const totalBooks =
+            document.getElementById("totalBooks");
+
+        const availableBooks =
+            document.getElementById("availableBooks");
+
+        const borrowedBooks =
+            document.getElementById("borrowedBooks");
 
 
-        // Update dashboard statistics
+        // ==============================
+        // UPDATE DASHBOARD
+        // ==============================
+
         function updateDashboard() {
 
             const total = books.length;
 
-            const available = books.filter(book => book.available).length;
+            const available =
+                books.filter(book => book.available).length;
 
-            const borrowed = books.filter(book => !book.available).length;
+            const borrowed =
+                books.filter(book => !book.available).length;
+
 
             totalBooks.textContent = total;
+
             availableBooks.textContent = available;
+
             borrowedBooks.textContent = borrowed;
         }
 
 
-        // Display books on the page
+        // ==============================
+        // DISPLAY BOOKS
+        // ==============================
+
         function displayBooks(bookList) {
 
-            // If no books match the search
+            // If there are no matching books
             if (bookList.length === 0) {
 
                 searchResults.innerHTML = `
@@ -144,7 +217,9 @@
 
                     <p>
                         <strong>Status:</strong>
-                        ${book.available ? "Available" : "Borrowed"}
+                        ${book.available
+                            ? "Available"
+                            : "Borrowed"}
                     </p>
 
                 </div>
@@ -153,49 +228,95 @@
         }
 
 
-        // Search function
+        // ==============================
+        // SEARCH AND CATEGORY FILTER
+        // ==============================
+
         function searchBooks() {
 
-            // Get the text entered by the user
-            const searchTerm = searchInput.value
-                .toLowerCase()
-                .trim();
-
-
-            // Find books matching title or author
-            const filteredBooks = books.filter(book =>
-
-                book.title
+            // Get search text
+            const searchTerm =
+                searchInput.value
                     .toLowerCase()
-                    .includes(searchTerm)
-
-                ||
-
-                book.author
-                    .toLowerCase()
-                    .includes(searchTerm)
-
-            );
+                    .trim();
 
 
-            // Display the results
+            // Get selected category
+            const selectedCategory =
+                categoryFilter.value;
+
+
+            // Filter books
+            const filteredBooks = books.filter(book => {
+
+                // Check title
+                const matchesTitle =
+                    book.title
+                        .toLowerCase()
+                        .includes(searchTerm);
+
+
+                // Check author
+                const matchesAuthor =
+                    book.author
+                        .toLowerCase()
+                        .includes(searchTerm);
+
+
+                // Check category
+                const matchesCategory =
+                    selectedCategory === "all" ||
+                    book.category === selectedCategory;
+
+
+                // Book must match search AND category
+                return (
+                    (matchesTitle || matchesAuthor) &&
+                    matchesCategory
+                );
+
+            });
+
+
+            // Display results
             displayBooks(filteredBooks);
         }
 
 
-        // Search when the Search button is clicked
-        searchButton.addEventListener("click", searchBooks);
+        // ==============================
+        // EVENT LISTENERS
+        // ==============================
+
+        // Search button
+        searchButton.addEventListener(
+            "click",
+            searchBooks
+        );
 
 
-        // Also search while the user types
-        searchInput.addEventListener("input", searchBooks);
+        // Search while typing
+        searchInput.addEventListener(
+            "input",
+            searchBooks
+        );
 
 
-        // Display all books when the page loads
+        // Filter when category changes
+        categoryFilter.addEventListener(
+            "change",
+            searchBooks
+        );
+
+
+        // ==============================
+        // INITIAL PAGE LOAD
+        // ==============================
+
+        // Display all books
         displayBooks(books);
 
 
-        // Update dashboard statistics
+        // Update dashboard
         updateDashboard();
 
     </script>
