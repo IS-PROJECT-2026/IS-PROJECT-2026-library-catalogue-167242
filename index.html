@@ -71,7 +71,10 @@
 
             <!-- Search button -->
 
-            <button id="searchButton">
+            <button
+                type="button"
+                id="searchButton"
+            >
                 Search
             </button>
 
@@ -266,26 +269,70 @@
 
 
         // ========================================
-        // LOAD SAVED BOOK DATA
+        // LOAD SAVED BOOK DATA SAFELY
         // ========================================
 
-        const savedBooks =
-            localStorage.getItem("libraryBooks");
+        function loadBooks() {
+
+            try {
+
+                const savedBooks =
+                    localStorage.getItem(
+                        "libraryBooks"
+                    );
 
 
-        if (savedBooks) {
+                // No saved data
 
-            const savedBooksData =
-                JSON.parse(savedBooks);
+                if (!savedBooks) {
+
+                    return;
+
+                }
 
 
-            books.splice(
-                0,
-                books.length,
-                ...savedBooksData
-            );
+                const savedBooksData =
+                    JSON.parse(savedBooks);
+
+
+                // Make sure saved data is an array
+
+                if (
+                    !Array.isArray(
+                        savedBooksData
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                // Replace current data with
+                // saved catalogue data
+
+                books.splice(
+                    0,
+                    books.length,
+                    ...savedBooksData
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to load saved library data:",
+                    error
+                );
+
+            }
 
         }
+
+
+        // Load saved books
+
+        loadBooks();
 
 
 
@@ -295,10 +342,22 @@
 
         function saveBooks() {
 
-            localStorage.setItem(
-                "libraryBooks",
-                JSON.stringify(books)
-            );
+            try {
+
+                localStorage.setItem(
+                    "libraryBooks",
+                    JSON.stringify(books)
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to save library data:",
+                    error
+                );
+
+            }
 
         }
 
@@ -311,13 +370,13 @@
         function updateDashboard() {
 
 
-            // Calculate total number of books
+            // Total books
 
             const total =
                 books.length;
 
 
-            // Calculate available books
+            // Available books
 
             const available =
                 books.filter(
@@ -325,7 +384,7 @@
                 ).length;
 
 
-            // Calculate borrowed books
+            // Borrowed books
 
             const borrowed =
                 books.filter(
@@ -333,7 +392,7 @@
                 ).length;
 
 
-            // Calculate borrowed percentage
+            // Borrowed percentage
 
             const borrowedRate =
                 total > 0
@@ -343,25 +402,19 @@
                     : 0;
 
 
-            // Display total books
+            // Update dashboard
 
             totalBooks.textContent =
                 total;
 
 
-            // Display available books
-
             availableBooks.textContent =
                 available;
 
 
-            // Display borrowed books
-
             borrowedBooks.textContent =
                 borrowed;
 
-
-            // Display borrowed percentage
 
             borrowedPercentage.textContent =
                 borrowedRate + "%";
@@ -379,7 +432,9 @@
 
             // No books found
 
-            if (bookList.length === 0) {
+            if (
+                bookList.length === 0
+            ) {
 
                 searchResults.innerHTML = `
 
@@ -472,8 +527,9 @@
                                 ? `
 
                                     <button
+                                        type="button"
                                         class="borrow-button"
-                                        data-title="${book.title}"
+                                        data-id="${book.id}"
                                     >
                                         Borrow Book
                                     </button>
@@ -483,8 +539,9 @@
                                 : `
 
                                     <button
+                                        type="button"
                                         class="return-button"
-                                        data-title="${book.title}"
+                                        data-id="${book.id}"
                                     >
                                         Return Book
                                     </button>
@@ -528,42 +585,43 @@
                 books.filter(book => {
 
 
-                    const matchesTitle =
-                        book.title
-                            .toLowerCase()
-                            .includes(
-                                searchTerm
-                            );
+                    const title =
+                        String(
+                            book.title || ""
+                        ).toLowerCase();
 
 
-                    const matchesAuthor =
-                        book.author
-                            .toLowerCase()
-                            .includes(
-                                searchTerm
-                            );
+                    const author =
+                        String(
+                            book.author || ""
+                        ).toLowerCase();
 
+
+                    // Search by title or author
+
+                    const matchesSearch =
+                        title.includes(
+                            searchTerm
+                        )
+                        ||
+                        author.includes(
+                            searchTerm
+                        );
+
+
+                    // Category filter
 
                     const matchesCategory =
                         selectedCategory === "all"
-
                         ||
-
                         book.category ===
                             selectedCategory;
 
 
                     return (
-
-                        (
-                            matchesTitle ||
-                            matchesAuthor
-                        )
-
+                        matchesSearch
                         &&
-
                         matchesCategory
-
                     );
 
                 });
@@ -583,28 +641,33 @@
         // BORROW BOOK
         // ========================================
 
-        function borrowBook(bookTitle) {
+        function borrowBook(bookId) {
 
 
-            // Find selected book
+            // Find book using unique ID
 
             const book =
                 books.find(
                     book =>
-                        book.title === bookTitle
+                        String(book.id) ===
+                        String(bookId)
                 );
 
 
-            // Make sure book exists
+            // Book not found
 
             if (!book) {
+
+                alert(
+                    "The selected book could not be found."
+                );
 
                 return;
 
             }
 
 
-            // Check whether already borrowed
+            // Already borrowed
 
             if (!book.available) {
 
@@ -622,22 +685,22 @@
             book.available = false;
 
 
-            // Save new status
+            // Save change
 
             saveBooks();
 
 
-            // Update catalogue statistics
+            // Update dashboard
 
             updateDashboard();
 
 
-            // Refresh displayed books
+            // Refresh current results
 
             searchBooks();
 
 
-            // Confirmation message
+            // Confirmation
 
             alert(
                 `You have borrowed "${book.title}".`
@@ -651,28 +714,33 @@
         // RETURN BOOK
         // ========================================
 
-        function returnBook(bookTitle) {
+        function returnBook(bookId) {
 
 
-            // Find selected book
+            // Find book using unique ID
 
             const book =
                 books.find(
                     book =>
-                        book.title === bookTitle
+                        String(book.id) ===
+                        String(bookId)
                 );
 
 
-            // Make sure book exists
+            // Book not found
 
             if (!book) {
+
+                alert(
+                    "The selected book could not be found."
+                );
 
                 return;
 
             }
 
 
-            // Check whether already available
+            // Already available
 
             if (book.available) {
 
@@ -690,22 +758,22 @@
             book.available = true;
 
 
-            // Save new status
+            // Save change
 
             saveBooks();
 
 
-            // Update catalogue statistics
+            // Update dashboard
 
             updateDashboard();
 
 
-            // Refresh displayed books
+            // Refresh current results
 
             searchBooks();
 
 
-            // Confirmation message
+            // Confirmation
 
             alert(
                 `You have returned "${book.title}".`
@@ -724,42 +792,63 @@
             function(event) {
 
 
+                // Find the clicked button
+
+                const button =
+                    event.target.closest(
+                        "button"
+                    );
+
+
+                // Ignore other clicks
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                // Get book ID
+
+                const bookId =
+                    button.dataset.id;
+
+
+                if (!bookId) {
+
+                    return;
+
+                }
+
+
                 // Borrow button
 
                 if (
-                    event.target.classList.contains(
+                    button.classList.contains(
                         "borrow-button"
                     )
                 ) {
 
-
-                    const bookTitle =
-                        event.target.dataset.title;
-
-
                     borrowBook(
-                        bookTitle
+                        bookId
                     );
 
-                }
+                    return;
 
+                }
 
 
                 // Return button
 
                 if (
-                    event.target.classList.contains(
+                    button.classList.contains(
                         "return-button"
                     )
                 ) {
 
-
-                    const bookTitle =
-                        event.target.dataset.title;
-
-
                     returnBook(
-                        bookTitle
+                        bookId
                     );
 
                 }
@@ -770,11 +859,8 @@
 
 
         // ========================================
-        // EVENT LISTENERS
+        // SEARCH BUTTON
         // ========================================
-
-
-        // Search button
 
         searchButton.addEventListener(
             "click",
@@ -782,7 +868,10 @@
         );
 
 
-        // Search while typing
+
+        // ========================================
+        // SEARCH WHILE TYPING
+        // ========================================
 
         searchInput.addEventListener(
             "input",
@@ -790,7 +879,33 @@
         );
 
 
-        // Category filter
+
+        // ========================================
+        // SEARCH USING ENTER KEY
+        // ========================================
+
+        searchInput.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    event.preventDefault();
+
+                    searchBooks();
+
+                }
+
+            }
+        );
+
+
+
+        // ========================================
+        // CATEGORY FILTER
+        // ========================================
 
         categoryFilter.addEventListener(
             "change",
@@ -803,15 +918,10 @@
         // INITIAL PAGE LOAD
         // ========================================
 
-
-        // Display all books
-
         displayBooks(
             books
         );
 
-
-        // Update catalogue statistics
 
         updateDashboard();
 
