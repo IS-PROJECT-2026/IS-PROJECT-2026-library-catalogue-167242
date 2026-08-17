@@ -187,6 +187,21 @@
                 </div>
 
 
+                <!-- Borrowed percentage -->
+
+                <div class="card">
+
+                    <h3>
+                        Borrowed Percentage
+                    </h3>
+
+                    <p id="borrowedPercentage">
+                        0%
+                    </p>
+
+                </div>
+
+
             </div>
 
         </section>
@@ -243,6 +258,12 @@
             document.getElementById("borrowedBooks");
 
 
+        const borrowedPercentage =
+            document.getElementById(
+                "borrowedPercentage"
+            );
+
+
 
         // ========================================
         // LOAD SAVED BOOK DATA
@@ -284,15 +305,19 @@
 
 
         // ========================================
-        // UPDATE DASHBOARD
+        // UPDATE CATALOGUE STATISTICS
         // ========================================
 
         function updateDashboard() {
 
 
+            // Calculate total number of books
+
             const total =
                 books.length;
 
+
+            // Calculate available books
 
             const available =
                 books.filter(
@@ -300,22 +325,46 @@
                 ).length;
 
 
+            // Calculate borrowed books
+
             const borrowed =
                 books.filter(
                     book => !book.available
                 ).length;
 
 
+            // Calculate borrowed percentage
+
+            const borrowedRate =
+                total > 0
+                    ? Math.round(
+                        (borrowed / total) * 100
+                    )
+                    : 0;
+
+
+            // Display total books
+
             totalBooks.textContent =
                 total;
 
+
+            // Display available books
 
             availableBooks.textContent =
                 available;
 
 
+            // Display borrowed books
+
             borrowedBooks.textContent =
                 borrowed;
+
+
+            // Display borrowed percentage
+
+            borrowedPercentage.textContent =
+                borrowedRate + "%";
 
         }
 
@@ -537,7 +586,7 @@
         function borrowBook(bookTitle) {
 
 
-            // Find the selected book
+            // Find selected book
 
             const book =
                 books.find(
@@ -573,12 +622,12 @@
             book.available = false;
 
 
-            // SAVE THE NEW STATUS
+            // Save new status
 
             saveBooks();
 
 
-            // Update dashboard
+            // Update catalogue statistics
 
             updateDashboard();
 
@@ -605,7 +654,7 @@
         function returnBook(bookTitle) {
 
 
-            // Find the selected book
+            // Find selected book
 
             const book =
                 books.find(
@@ -641,12 +690,12 @@
             book.available = true;
 
 
-            // SAVE THE NEW STATUS
+            // Save new status
 
             saveBooks();
 
 
-            // Update dashboard
+            // Update catalogue statistics
 
             updateDashboard();
 
@@ -762,7 +811,7 @@
         );
 
 
-        // Update dashboard
+        // Update catalogue statistics
 
         updateDashboard();
 
