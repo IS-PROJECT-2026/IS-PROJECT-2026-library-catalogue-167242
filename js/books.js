@@ -1,3 +1,4 @@
+```javascript
 const books = [
     {
         id: 1,
@@ -49,4 +50,73 @@ const books = [
     }
 ];
 
+
+// ========================================
+// LOAD SAVED BOOK DATA SAFELY
+// ========================================
+
+try {
+
+    const savedBooks =
+        localStorage.getItem("libraryBooks");
+
+
+    if (savedBooks) {
+
+        const savedBooksData =
+            JSON.parse(savedBooks);
+
+
+        // Make sure the saved data is an array
+
+        if (Array.isArray(savedBooksData)) {
+
+            // Make sure each saved book has
+            // the required properties
+
+            const validBooks =
+                savedBooksData.filter(book =>
+
+                    book &&
+                    typeof book.id !== "undefined" &&
+                    typeof book.title === "string" &&
+                    typeof book.author === "string" &&
+                    typeof book.category === "string" &&
+                    typeof book.available === "boolean"
+
+                );
+
+
+            // Only replace the catalogue if
+            // valid saved data exists
+
+            if (validBooks.length > 0) {
+
+                books.splice(
+                    0,
+                    books.length,
+                    ...validBooks
+                );
+
+            }
+
+        }
+
+    }
+
+} catch (error) {
+
+    console.error(
+        "Unable to load saved library data:",
+        error
+    );
+
+}
+
+
+// ========================================
+// EXPORT THE BOOK CATALOGUE
+// ========================================
+
 export default books;
+```

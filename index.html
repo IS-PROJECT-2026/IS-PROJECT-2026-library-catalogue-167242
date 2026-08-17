@@ -1,279 +1,28 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Library Catalogue</title>
 
-    <style>
-
-        /* ==============================
-           GENERAL PAGE STYLING
-        ============================== */
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            color: #222;
-        }
-
-
-        /* ==============================
-           HEADER
-        ============================== */
-
-        header {
-            background-color: #245783;
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0 0 20px 0;
-            font-size: 40px;
-        }
-
-
-        /* ==============================
-           NAVIGATION
-        ============================== */
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 35px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-
-        /* ==============================
-           MAIN CONTENT
-        ============================== */
-
-        main {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-
-        /* ==============================
-           SEARCH SECTION
-        ============================== */
-
-        .search-section {
-            background-color: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 35px;
-        }
-
-        .search-section h2 {
-            color: #245783;
-            margin-top: 0;
-            font-size: 32px;
-        }
-
-
-        /* Search area */
-
-        .search-box {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        #searchInput {
-            flex: 1;
-            padding: 15px;
-            font-size: 17px;
-            border: 1px solid #ccc;
-            border-radius: 7px;
-        }
-
-        #searchButton {
-            padding: 15px 30px;
-            background-color: #245783;
-            color: white;
-            border: none;
-            border-radius: 7px;
-            font-size: 17px;
-            cursor: pointer;
-        }
-
-        #searchButton:hover {
-            background-color: #173e5f;
-        }
-
-
-        /* ==============================
-           CATEGORY FILTER
-        ============================== */
-
-        .category-filter {
-            margin-bottom: 25px;
-        }
-
-        .category-filter label {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        #categoryFilter {
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-
-        /* ==============================
-           BOOK RESULTS
-        ============================== */
-
-        #searchResults {
-            margin-top: 20px;
-        }
-
-        .book-result {
-            background-color: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .book-result h3 {
-            color: #245783;
-            margin-top: 0;
-            font-size: 24px;
-        }
-
-        .book-result p {
-            margin: 10px 0;
-            font-size: 16px;
-        }
-
-
-        /* ==============================
-           DASHBOARD
-        ============================== */
-
-        .dashboard {
-            background-color: white;
-            padding: 35px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .dashboard h2 {
-            color: #245783;
-            font-size: 32px;
-            margin-top: 0;
-        }
-
-        .dashboard-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card {
-            background-color: #f4f6f8;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .card h3 {
-            color: #245783;
-            margin-top: 0;
-        }
-
-        .card p {
-            font-size: 35px;
-            font-weight: bold;
-            margin-bottom: 0;
-        }
-
-
-        /* ==============================
-           NO RESULTS MESSAGE
-        ============================== */
-
-        .no-results {
-            padding: 20px;
-            background-color: #fff3f3;
-            border: 1px solid #e0aaaa;
-            border-radius: 8px;
-            color: #9b2226;
-        }
-
-
-        /* ==============================
-           RESPONSIVE DESIGN
-        ============================== */
-
-        @media (max-width: 768px) {
-
-            header h1 {
-                font-size: 30px;
-            }
-
-            nav {
-                gap: 15px;
-            }
-
-            .search-box {
-                flex-direction: column;
-            }
-
-            #searchButton {
-                width: 100%;
-            }
-
-            .dashboard-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .search-section,
-            .dashboard {
-                padding: 20px;
-            }
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 
 <body>
 
-
-    <!-- ==============================
-         HEADER AND NAVIGATION
-    ============================== -->
+    <!-- =========================================
+         HEADER
+    ========================================== -->
 
     <header>
 
@@ -281,116 +30,116 @@
 
         <nav>
 
-            <a href="#dashboard">
-                Dashboard
-            </a>
+            <a href="#">Dashboard</a>
 
-            <a href="#books">
-                Books
-            </a>
+            <a href="#">Books</a>
 
-            <a href="#categories">
-                Categories
-            </a>
+            <a href="#">Categories</a>
 
-            <a href="#borrowing">
-                Borrowing
-            </a>
+            <a href="#">Borrowing</a>
 
         </nav>
 
     </header>
 
 
-    <!-- ==============================
+
+    <!-- =========================================
          MAIN CONTENT
-    ============================== -->
+    ========================================== -->
 
     <main>
 
 
-        <!-- ==============================
+        <!-- =====================================
              SEARCH AND FILTER SECTION
-        ============================== -->
+        ====================================== -->
 
-        <section class="search-section" id="books">
+        <section class="search-section">
 
             <h2>Search Books</h2>
 
 
-            <!-- Search box -->
+            <!-- Search input -->
 
-            <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by title or author..."
+            >
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Search by title or author..."
-                >
 
-                <button id="searchButton">
-                    Search
-                </button>
+            <!-- Search button -->
 
-            </div>
+            <button
+                type="button"
+                id="searchButton"
+            >
+                Search
+            </button>
+
+
+            <br>
+            <br>
 
 
             <!-- Category filter -->
 
-            <div class="category-filter" id="categories">
+            <label for="categoryFilter">
+                Filter by Category:
+            </label>
 
-                <label for="categoryFilter">
-                    Filter by Category:
-                </label>
 
-                <select id="categoryFilter">
+            <select id="categoryFilter">
 
-                    <option value="all">
-                        All Categories
-                    </option>
+                <option value="all">
+                    All Categories
+                </option>
 
-                    <option value="African Literature">
-                        African Literature
-                    </option>
+                <option value="African Literature">
+                    African Literature
+                </option>
 
-                    <option value="Fiction">
-                        Fiction
-                    </option>
+                <option value="Programming">
+                    Programming
+                </option>
 
-                    <option value="Technology">
-                        Technology
-                    </option>
+                <option value="Computer Science">
+                    Computer Science
+                </option>
 
-                    <option value="Business">
-                        Business
-                    </option>
+                <option value="Fiction">
+                    Fiction
+                </option>
 
-                    <option value="Science">
-                        Science
-                    </option>
+                <option value="Self Development">
+                    Self Development
+                </option>
 
-                </select>
-
-            </div>
+            </select>
 
 
             <!-- Search results -->
 
-            <div id="searchResults"></div>
+            <div id="searchResults">
+
+                <p>
+                    Enter a book title or author to search.
+                </p>
+
+            </div>
 
         </section>
 
 
 
-        <!-- ==============================
+        <!-- =====================================
              DASHBOARD
-        ============================== -->
+        ====================================== -->
 
-        <section class="dashboard" id="dashboard">
+        <section class="dashboard">
 
-            <h2>
-                Library Dashboard
-            </h2>
+            <h2>Library Dashboard</h2>
 
 
             <div class="dashboard-cards">
@@ -441,6 +190,21 @@
                 </div>
 
 
+                <!-- Borrowed percentage -->
+
+                <div class="card">
+
+                    <h3>
+                        Borrowed Percentage
+                    </h3>
+
+                    <p id="borrowedPercentage">
+                        0%
+                    </p>
+
+                </div>
+
+
             </div>
 
         </section>
@@ -450,83 +214,36 @@
 
 
 
-    <!-- ==============================
+    <!-- =========================================
          JAVASCRIPT
-    ============================== -->
+    ========================================== -->
 
-    <script>
+    <script type="module">
 
 
-        /* =================================
-           BOOK CATALOGUE DATA
-        ================================= */
+        // ========================================
+        // IMPORT BOOK DATA
+        // ========================================
 
-        const books = [
-
-            {
-                title: "Things Fall Apart",
-                author: "Chinua Achebe",
-                category: "African Literature",
-                year: 1958,
-                available: true
-            },
-
-            {
-                title: "The River Between",
-                author: "Ngugi wa Thiong'o",
-                category: "African Literature",
-                year: 1965,
-                available: true
-            },
-
-            {
-                title: "Clean Code",
-                author: "Robert C. Martin",
-                category: "Technology",
-                year: 2008,
-                available: true
-            },
-
-            {
-                title: "The Lean Startup",
-                author: "Eric Ries",
-                category: "Business",
-                year: 2011,
-                available: false
-            },
-
-            {
-                title: "The Great Gatsby",
-                author: "F. Scott Fitzgerald",
-                category: "Fiction",
-                year: 1925,
-                available: true
-            },
-
-            {
-                title: "A Brief History of Time",
-                author: "Stephen Hawking",
-                category: "Science",
-                year: 1988,
-                available: false
-            }
-
-        ];
+        import books from "./js/books.js";
 
 
 
-        /* =================================
-           GET HTML ELEMENTS
-        ================================= */
+        // ========================================
+        // GET HTML ELEMENTS
+        // ========================================
 
         const searchInput =
             document.getElementById("searchInput");
 
+
         const searchButton =
             document.getElementById("searchButton");
 
+
         const categoryFilter =
             document.getElementById("categoryFilter");
+
 
         const searchResults =
             document.getElementById("searchResults");
@@ -535,23 +252,131 @@
         const totalBooks =
             document.getElementById("totalBooks");
 
+
         const availableBooks =
             document.getElementById("availableBooks");
+
 
         const borrowedBooks =
             document.getElementById("borrowedBooks");
 
 
+        const borrowedPercentage =
+            document.getElementById(
+                "borrowedPercentage"
+            );
 
-        /* =================================
-           UPDATE DASHBOARD
-        ================================= */
+
+
+        // ========================================
+        // LOAD SAVED BOOK DATA SAFELY
+        // ========================================
+
+        function loadBooks() {
+
+            try {
+
+                const savedBooks =
+                    localStorage.getItem(
+                        "libraryBooks"
+                    );
+
+
+                // No saved data
+
+                if (!savedBooks) {
+
+                    return;
+
+                }
+
+
+                const savedBooksData =
+                    JSON.parse(savedBooks);
+
+
+                // Make sure saved data is an array
+
+                if (
+                    !Array.isArray(
+                        savedBooksData
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                // Replace current data with
+                // saved catalogue data
+
+                books.splice(
+                    0,
+                    books.length,
+                    ...savedBooksData
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to load saved library data:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // Load saved books
+
+        loadBooks();
+
+
+
+        // ========================================
+        // SAVE BOOK DATA
+        // ========================================
+
+        function saveBooks() {
+
+            try {
+
+                localStorage.setItem(
+                    "libraryBooks",
+                    JSON.stringify(books)
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to save library data:",
+                    error
+                );
+
+            }
+
+        }
+
+
+
+        // ========================================
+        // UPDATE CATALOGUE STATISTICS
+        // ========================================
 
         function updateDashboard() {
+
+
+            // Total books
 
             const total =
                 books.length;
 
+
+            // Available books
 
             const available =
                 books.filter(
@@ -559,11 +384,25 @@
                 ).length;
 
 
+            // Borrowed books
+
             const borrowed =
                 books.filter(
                     book => !book.available
                 ).length;
 
+
+            // Borrowed percentage
+
+            const borrowedRate =
+                total > 0
+                    ? Math.round(
+                        (borrowed / total) * 100
+                    )
+                    : 0;
+
+
+            // Update dashboard
 
             totalBooks.textContent =
                 total;
@@ -576,37 +415,32 @@
             borrowedBooks.textContent =
                 borrowed;
 
+
+            borrowedPercentage.textContent =
+                borrowedRate + "%";
+
         }
 
 
 
-        /* =================================
-           DISPLAY BOOKS
-        ================================= */
+        // ========================================
+        // DISPLAY BOOKS
+        // ========================================
 
         function displayBooks(bookList) {
 
 
-            /*
-             If there are no matching books
-            */
+            // No books found
 
-            if (bookList.length === 0) {
+            if (
+                bookList.length === 0
+            ) {
 
                 searchResults.innerHTML = `
 
-                    <div class="no-results">
-
-                        <strong>
-                            No books found.
-                        </strong>
-
-                        <p>
-                            Try another title, author,
-                            or category.
-                        </p>
-
-                    </div>
+                    <p>
+                        No books found.
+                    </p>
 
                 `;
 
@@ -615,15 +449,15 @@
             }
 
 
-            /*
-             Display matching books
-            */
+
+            // Display books
 
             searchResults.innerHTML =
 
                 bookList.map(book => `
 
                     <div class="book-result">
+
 
                         <h3>
                             ${book.title}
@@ -669,13 +503,52 @@
                                 Status:
                             </strong>
 
-                            ${
+
+                            <span class="${
                                 book.available
-                                ? "Available"
-                                : "Borrowed"
-                            }
+                                    ? "available"
+                                    : "borrowed"
+                            }">
+
+                                ${
+                                    book.available
+                                        ? "Available"
+                                        : "Borrowed"
+                                }
+
+                            </span>
 
                         </p>
+
+
+                        ${
+                            book.available
+
+                                ? `
+
+                                    <button
+                                        type="button"
+                                        class="borrow-button"
+                                        data-id="${book.id}"
+                                    >
+                                        Borrow Book
+                                    </button>
+
+                                `
+
+                                : `
+
+                                    <button
+                                        type="button"
+                                        class="return-button"
+                                        data-id="${book.id}"
+                                    >
+                                        Return Book
+                                    </button>
+
+                                `
+                        }
+
 
                     </div>
 
@@ -685,114 +558,309 @@
 
 
 
-        /* =================================
-           SEARCH AND FILTER BOOKS
-        ================================= */
+        // ========================================
+        // SEARCH AND CATEGORY FILTER
+        // ========================================
 
         function searchBooks() {
 
 
-            /*
-             Get search text
-            */
+            // Get search term
 
             const searchTerm =
-
                 searchInput.value
                     .toLowerCase()
                     .trim();
 
 
-            /*
-             Get selected category
-            */
+            // Get selected category
 
             const selectedCategory =
                 categoryFilter.value;
 
 
-            /*
-             Filter books
-            */
+            // Filter books
 
             const filteredBooks =
-
                 books.filter(book => {
 
 
-                    /*
-                     Check title
-                    */
-
-                    const matchesTitle =
-
-                        book.title
-                            .toLowerCase()
-                            .includes(searchTerm);
+                    const title =
+                        String(
+                            book.title || ""
+                        ).toLowerCase();
 
 
-                    /*
-                     Check author
-                    */
-
-                    const matchesAuthor =
-
-                        book.author
-                            .toLowerCase()
-                            .includes(searchTerm);
+                    const author =
+                        String(
+                            book.author || ""
+                        ).toLowerCase();
 
 
-                    /*
-                     Check category
-                    */
+                    // Search by title or author
+
+                    const matchesSearch =
+                        title.includes(
+                            searchTerm
+                        )
+                        ||
+                        author.includes(
+                            searchTerm
+                        );
+
+
+                    // Category filter
 
                     const matchesCategory =
-
                         selectedCategory === "all"
-
                         ||
-
                         book.category ===
-                        selectedCategory;
+                            selectedCategory;
 
-
-                    /*
-                     Book must match title
-                     or author AND category
-                    */
 
                     return (
-
-                        (matchesTitle ||
-                         matchesAuthor)
-
+                        matchesSearch
                         &&
-
                         matchesCategory
-
                     );
 
                 });
 
 
-            /*
-             Display results
-            */
+            // Display results
 
-            displayBooks(filteredBooks);
+            displayBooks(
+                filteredBooks
+            );
 
         }
 
 
 
-        /* =================================
-           EVENT LISTENERS
-        ================================= */
+        // ========================================
+        // BORROW BOOK
+        // ========================================
+
+        function borrowBook(bookId) {
 
 
-        /*
-         Search button
-        */
+            // Find book using unique ID
+
+            const book =
+                books.find(
+                    book =>
+                        String(book.id) ===
+                        String(bookId)
+                );
+
+
+            // Book not found
+
+            if (!book) {
+
+                alert(
+                    "The selected book could not be found."
+                );
+
+                return;
+
+            }
+
+
+            // Already borrowed
+
+            if (!book.available) {
+
+                alert(
+                    "This book has already been borrowed."
+                );
+
+                return;
+
+            }
+
+
+            // Change availability
+
+            book.available = false;
+
+
+            // Save change
+
+            saveBooks();
+
+
+            // Update dashboard
+
+            updateDashboard();
+
+
+            // Refresh current results
+
+            searchBooks();
+
+
+            // Confirmation
+
+            alert(
+                `You have borrowed "${book.title}".`
+            );
+
+        }
+
+
+
+        // ========================================
+        // RETURN BOOK
+        // ========================================
+
+        function returnBook(bookId) {
+
+
+            // Find book using unique ID
+
+            const book =
+                books.find(
+                    book =>
+                        String(book.id) ===
+                        String(bookId)
+                );
+
+
+            // Book not found
+
+            if (!book) {
+
+                alert(
+                    "The selected book could not be found."
+                );
+
+                return;
+
+            }
+
+
+            // Already available
+
+            if (book.available) {
+
+                alert(
+                    "This book is already available."
+                );
+
+                return;
+
+            }
+
+
+            // Change availability
+
+            book.available = true;
+
+
+            // Save change
+
+            saveBooks();
+
+
+            // Update dashboard
+
+            updateDashboard();
+
+
+            // Refresh current results
+
+            searchBooks();
+
+
+            // Confirmation
+
+            alert(
+                `You have returned "${book.title}".`
+            );
+
+        }
+
+
+
+        // ========================================
+        // BOOK BUTTON EVENTS
+        // ========================================
+
+        searchResults.addEventListener(
+            "click",
+            function(event) {
+
+
+                // Find the clicked button
+
+                const button =
+                    event.target.closest(
+                        "button"
+                    );
+
+
+                // Ignore other clicks
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                // Get book ID
+
+                const bookId =
+                    button.dataset.id;
+
+
+                if (!bookId) {
+
+                    return;
+
+                }
+
+
+                // Borrow button
+
+                if (
+                    button.classList.contains(
+                        "borrow-button"
+                    )
+                ) {
+
+                    borrowBook(
+                        bookId
+                    );
+
+                    return;
+
+                }
+
+
+                // Return button
+
+                if (
+                    button.classList.contains(
+                        "return-button"
+                    )
+                ) {
+
+                    returnBook(
+                        bookId
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        // ========================================
+        // SEARCH BUTTON
+        // ========================================
 
         searchButton.addEventListener(
             "click",
@@ -800,9 +868,10 @@
         );
 
 
-        /*
-         Search while typing
-        */
+
+        // ========================================
+        // SEARCH WHILE TYPING
+        // ========================================
 
         searchInput.addEventListener(
             "input",
@@ -810,25 +879,20 @@
         );
 
 
-        /*
-         Category filter
-        */
 
-        categoryFilter.addEventListener(
-            "change",
-            searchBooks
-        );
-
-
-        /*
-         Allow Enter key to search
-        */
+        // ========================================
+        // SEARCH USING ENTER KEY
+        // ========================================
 
         searchInput.addEventListener(
             "keydown",
             function(event) {
 
-                if (event.key === "Enter") {
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    event.preventDefault();
 
                     searchBooks();
 
@@ -839,21 +903,25 @@
 
 
 
-        /* =================================
-           INITIAL PAGE LOAD
-        ================================= */
+        // ========================================
+        // CATEGORY FILTER
+        // ========================================
+
+        categoryFilter.addEventListener(
+            "change",
+            searchBooks
+        );
 
 
-        /*
-         Display all books
-        */
 
-        displayBooks(books);
+        // ========================================
+        // INITIAL PAGE LOAD
+        // ========================================
 
+        displayBooks(
+            books
+        );
 
-        /*
-         Update dashboard statistics
-        */
 
         updateDashboard();
 
@@ -864,3 +932,4 @@
 </body>
 
 </html>
+```
