@@ -49,4 +49,24 @@ const books = [
     }
 ];
 
+
+// ========================================
+// LOAD SAVED BOOK DATA
+// ========================================
+
+const savedBooks = localStorage.getItem("libraryBooks");
+
+if (savedBooks) {
+
+    const savedBooksData = JSON.parse(savedBooks);
+
+    books.splice(
+        0,
+        books.length,
+        ...savedBooksData
+    );
+}
+
+
+// Export the book catalogue
 export default books;
