@@ -1,8 +1,18 @@
+```css
+/* =========================================
+   GENERAL RESET
+========================================= */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+
+/* =========================================
+   BODY
+========================================= */
 
 body {
     font-family: Arial, sans-serif;
@@ -11,7 +21,11 @@ body {
     line-height: 1.6;
 }
 
-/* Header */
+
+/* =========================================
+   HEADER
+========================================= */
+
 header {
     background-color: #1f4e79;
     color: white;
@@ -21,33 +35,49 @@ header {
 
 header h1 {
     margin-bottom: 15px;
+    font-size: 32px;
 }
 
-/* Navigation */
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
 nav {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 25px;
+    flex-wrap: wrap;
 }
 
 nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    padding: 5px 10px;
 }
 
 nav a:hover {
     text-decoration: underline;
 }
 
-/* Main content */
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
 main {
     width: 90%;
     max-width: 1100px;
     margin: 30px auto;
 }
 
-/* Sections */
+
+/* =========================================
+   SECTIONS
+========================================= */
+
 section {
     background-color: white;
     padding: 25px;
@@ -61,9 +91,14 @@ section h2 {
     color: #1f4e79;
 }
 
-/* Search */
+
+/* =========================================
+   SEARCH SECTION
+========================================= */
+
 #searchInput {
     width: 70%;
+    max-width: 700px;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -85,7 +120,25 @@ section h2 {
     background-color: #163a5c;
 }
 
-/* Book results */
+
+/* =========================================
+   CATEGORY FILTER
+========================================= */
+
+#categoryFilter {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    max-width: 100%;
+}
+
+
+/* =========================================
+   BOOK RESULTS
+========================================= */
+
 .book-result {
     border: 1px solid #ddd;
     padding: 20px;
@@ -103,7 +156,55 @@ section h2 {
     margin: 5px 0;
 }
 
-/* Dashboard */
+
+/* =========================================
+   BOOK STATUS
+========================================= */
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+
+.borrowed {
+    color: #b22222;
+    font-weight: bold;
+}
+
+
+/* =========================================
+   BORROW / RETURN BUTTONS
+========================================= */
+
+.borrow-button,
+.return-button {
+    padding: 10px 16px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.borrow-button {
+    background-color: #1f4e79;
+}
+
+.return-button {
+    background-color: #555;
+}
+
+.borrow-button:hover,
+.return-button:hover {
+    opacity: 0.85;
+}
+
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
 .dashboard-cards {
     display: flex;
     gap: 20px;
@@ -111,7 +212,7 @@ section h2 {
 }
 
 .card {
-    flex: 1;
+    flex: 1 1 200px;
     min-width: 200px;
     padding: 25px;
     text-align: center;
@@ -130,28 +231,226 @@ section h2 {
     color: #1f4e79;
 }
 
-/* Mobile responsive design */
-@media (max-width: 600px) {
+
+/* =========================================
+   TABLET RESPONSIVE DESIGN
+   768px - 1024px
+========================================= */
+
+@media (max-width: 1024px) {
+
+    header {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 28px;
+    }
 
     nav {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #searchInput {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #searchButton {
-        margin-left: 0;
-    }
-
-    .dashboard-cards {
-        flex-direction: column;
+        gap: 15px;
     }
 
     main {
-        width: 95%;
+        width: 92%;
+        margin: 25px auto;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    #searchInput {
+        width: 65%;
+    }
+
+    .dashboard-cards {
+        gap: 15px;
+    }
+
+    .card {
+        flex: 1 1 200px;
     }
 }
+
+
+/* =========================================
+   MOBILE RESPONSIVE DESIGN
+   Up to 767px
+========================================= */
+
+@media (max-width: 767px) {
+
+    /* Header */
+
+    header {
+        padding: 18px 15px;
+    }
+
+    header h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+
+    /* Navigation */
+
+    nav {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+    }
+
+    nav a {
+        width: 100%;
+        padding: 8px;
+    }
+
+
+    /* Main content */
+
+    main {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+
+    /* Sections */
+
+    section {
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+
+    section h2 {
+        font-size: 21px;
+    }
+
+
+    /* Search input */
+
+    #searchInput {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+
+    /* Search button */
+
+    #searchButton {
+        width: 100%;
+        margin-left: 0;
+        padding: 12px;
+    }
+
+
+    /* Category filter */
+
+    #categoryFilter {
+        width: 100%;
+        margin-top: 8px;
+        padding: 12px;
+    }
+
+
+    /* Book results */
+
+    .book-result {
+        padding: 15px;
+    }
+
+    .book-result h3 {
+        font-size: 19px;
+    }
+
+
+    /* Borrow / return buttons */
+
+    .borrow-button,
+    .return-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+
+    /* Dashboard */
+
+    .dashboard-cards {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .card {
+        width: 100%;
+        min-width: 0;
+        padding: 20px;
+    }
+
+    .card p {
+        font-size: 28px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE PHONES
+   Up to 480px
+========================================= */
+
+@media (max-width: 480px) {
+
+    header {
+        padding: 15px 10px;
+    }
+
+    header h1 {
+        font-size: 21px;
+    }
+
+    main {
+        width: 96%;
+        margin: 15px auto;
+    }
+
+    section {
+        padding: 14px;
+    }
+
+    section h2 {
+        font-size: 19px;
+    }
+
+    .book-result {
+        padding: 12px;
+    }
+
+    .book-result h3 {
+        font-size: 18px;
+    }
+
+    .book-result p {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+    }
+
+    .card p {
+        font-size: 25px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+}
+```
